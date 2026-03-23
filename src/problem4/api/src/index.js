@@ -46,11 +46,9 @@ pool.on('error', (err) => {
 app.get("/api/users", async (req, res) => {
   let client = null;
   try {
-    // Test database connection
     client = await pool.connect();
     const result = await client.query("SELECT NOW() as current_time");
     
-    // Test Redis connection
     await redis.set("last_call", Date.now());
     const lastCall = await redis.get("last_call");
     
@@ -74,6 +72,7 @@ app.get("/api/users", async (req, res) => {
   }
 });
 
+// Enhanced status endpoint with detailed health checks, suitable for monitoring, diagnostics and deployment
 app.get("/status", async (req, res) => {
   const status = {
     status: "ok",
@@ -83,7 +82,7 @@ app.get("/status", async (req, res) => {
     env: process.env.NODE_ENV || "development"
   };
 
-  // Check database connectivity
+  // Add health check for database connectivity
   try {
     const client = await pool.connect();
     await client.query('SELECT 1');
@@ -94,7 +93,7 @@ app.get("/status", async (req, res) => {
     status.database_error = err.message;
   }
 
-  // Check Redis connectivity
+  // Add health check for Redis connectivity
   try {
     await redis.ping();
     status.redis = "connected";
@@ -103,15 +102,13 @@ app.get("/status", async (req, res) => {
     status.redis_error = err.message;
   }
 
-  // Return appropriate status code
   const isHealthy = status.database === "connected" && status.redis === "connected";
   res.status(isHealthy ? 200 : 503).json(status);
 });
 
-// Health check endpoint for container health checks
+// Quick health check without detailed info, suitable for load balancers and container health checks
 app.get("/health", async (req, res) => {
   try {
-    // Quick health check without detailed info
     const client = await pool.connect();
     await client.query('SELECT 1');
     client.release();

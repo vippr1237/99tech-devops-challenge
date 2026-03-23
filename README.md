@@ -1,8 +1,7 @@
-# 99Tech DevOps Challenge #
-Note that if you fork this repository, your responses may be publicly linked to this repo (DO NO FORK).
-Please submit your application along with the solutions attached or linked.
+# Nguyen Quang Ha - 99Tech DevOps Challenge #
+This is the submission of Nguyen Quang Ha for the 99Tech DevOps Challenge
 
-It is important that you minimally attempt the problems, even if you do not arrive at a working solution.
+The challenge can also be view via this notion website: https://thunder-red-a31.notion.site/Nguyen-Quang-Ha-99Tech-DevOps-Challenge-32acd5b0952b8001ab59eb5fff009e57
 
-## Submission ##
-You can either provide a link to an online repository, attach the solution in your application, or whichever method you prefer. We're cool as long as we can view your solution without any pain.
+### For problem 4
+File change in problem 4 can be viewed in this PR for convinience: https://github.com/vippr1237/99tech-devops-challenge/pull/1

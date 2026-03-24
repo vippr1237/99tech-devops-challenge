@@ -240,6 +240,34 @@ Services includes:
 **Why chosen:** This is the foundation layer of AWS security, good for medium system like this.
 
 ---
+## Disaster Recovery Strategy
+
+**Chosen strategy**: Pilot light
+
+![DR Strategies](disaster-recovery-strategies.png)
+
+**Mindset**:
+
+- Keep the data warm and services idle, service can be spin up quickly if issue occurs.
+- Ensure cost-effectives but keep RTO and RPO low
+
+**Expected RPO and RPO:**
+
+- RPO: <1min with the data live and constantly snapshots of matching data.
+- RTO: <5min with service idles, only need to spin up. <2min if implemented automated runbook that spin up service if alert received.
+
+**Implementation**:
+
+- AuroraDB is replicated across regions
+- S3 is replicated and sync across regions
+- EC2 is provisioned but in turn off state
+- ECS service is created but 0 task running
+
+**Testing**:
+
+Testing the DR scenarios every 6 month
+
+---
 
 ## Flow
 
